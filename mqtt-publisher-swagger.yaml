@@ -1,0 +1,41 @@
+swagger: "2.0"
+info:
+  description: "Microservice che si occupa dell'invio dei comandi dei dispositivi [https://github.com/env-os/mqtt-publisher-service]"
+  version: "1.0.0"
+  title: "mqtt-publisher-service"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3000"
+paths:
+  /mqtt:
+    post:
+      summary: "Pubblica un messaggio nel topic del device relativo al comando inviato"
+      description: "Questa chiamata POST consente di pubblicare un messaggio nel topic del device relativo al comando inviato"
+      operationId: "publish"
+      consumes:
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "Selezionare topic e messaggio da inviare"
+        required: true
+        schema:
+          $ref: '#/definitions/Mqtt'
+      responses:
+        200:
+          description: OK
+        400:
+          description: "Messaggio non inviato"
+     
+  
+
+definitions:
+  Mqtt:
+    type: object
+    properties:
+      topic:
+        type: string
+        format: string
+      data:
+        type: object
